@@ -11,7 +11,7 @@ export default function HomePage() {
         <Button
           text='모바일 통지서 연결하기'
           onClick={() => {
-            router.push('/page2');
+            router.push('/page');
           }}
         />
       </div>
