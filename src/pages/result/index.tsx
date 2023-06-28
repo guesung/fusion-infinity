@@ -8,29 +8,29 @@ export default function ResultPage() {
 
   return (
     <div className='flex h-full flex-col p-4 pb-12'>
-      <div className='mb-10 ml-4 text-[1.25rem] font-bold'>서비스명 ---</div>
+      <div className='my-5 mt-10 text-[1.25rem] font-bold'>서비스명 ---</div>
       <div className='flex h-full flex-col gap-4'>
         <div className='rounded-3xl bg-white p-4'>
           <h1 className='text-bold mb-6 text-[20px] leading-tight'>
             지난달 같은 기간 보다
             <br />
-            <span className='text-main'>11,557원 더 사용</span>하고 있어요.
+            <span className='text-main'>11,189 더 사용</span>하고 있어요.
           </h1>
           <div className='flex justify-center gap-10'>
             <div className='flex w-[100px] flex-col items-center text-[.875rem]'>
               <p>지난달</p>
               <p className='flex items-center gap-[.3125rem]'>
-                <b className='text-[24px]'>142.4</b>kwh
+                <b className='text-[24px]'>142.8</b>kwh
               </p>
-              <p>13,234원</p>
+              <p>12,345원</p>
             </div>
             <span className='bg-main my-[.3125rem] w-[.0625rem] items-stretch'></span>
             <div className='flex w-[100px] flex-col items-center text-[.875rem]'>
               <p>지난달</p>
               <p className='flex items-center gap-[.3125rem]'>
-                <b className='text-[24px]'>142.4</b>kwh
+                <b className='text-[24px]'>267</b>kwh
               </p>
-              <p>13,234원</p>
+              <p>23,534원</p>
             </div>
           </div>
         </div>
