@@ -4,6 +4,9 @@ export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      animationFillMode: {
+        forwards: 'forwards',
+      },
       fontFamily: {
         primary: ['SF Pro Display'],
       },
@@ -62,12 +65,43 @@ export default {
             'background-color': 'rgba(165, 165, 165, 0.3)',
           },
         },
+        mainLogo: {
+          '0%': {
+            transform: 'scale(1) translateX(30%)',
+          },
+          '70%': {
+            transform: 'scale(0.7) translateX(0px)',
+          },
+          '100%': {
+            transform: 'scale(0.7) translateX(0px)',
+          },
+        },
+        mainText: {
+          '0%': {
+            transform: 'translateX(-50px)',
+            opacity: '0',
+          },
+          '20%': {
+            transform: 'translateX(-50px)',
+            opacity: '0',
+          },
+          '90%': {
+            transform: 'translateX(-15px)',
+            opacity: '1',
+          },
+          '100%': {
+            transform: 'translateX(-15px)',
+            opacity: '1',
+          },
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
         beatingHeart: 'beatingHeart 1.3s linear infinite',
         skeleton: 'skeleton 1.5s ease-in-out infinite',
+        mainLogo: 'mainLogo 1s ease-in',
+        mainText: 'mainText 1s linear ',
       },
     },
   },
