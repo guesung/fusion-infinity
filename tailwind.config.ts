@@ -51,11 +51,23 @@ export default {
             transform: 'scale(1)',
           },
         },
+        skeleton: {
+          '0%': {
+            'background-color': 'rgba(165, 165, 165, 0.3)',
+          },
+          '50%': {
+            'background-color': 'rgba(165, 165, 165, 0.5)',
+          },
+          '100%': {
+            'background-color': 'rgba(165, 165, 165, 0.3)',
+          },
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
         beatingHeart: 'beatingHeart 1.3s linear infinite',
+        skeleton: 'skeleton 1.5s ease-in-out infinite',
       },
     },
   },
