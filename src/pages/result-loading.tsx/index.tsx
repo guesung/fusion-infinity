@@ -14,7 +14,7 @@ export default function ResultLoading() {
   }, []);
   return (
     <div className='relative flex h-full flex-col justify-center p-4 pb-12'>
-      <div className='absolute inset-0 m-auto h-full w-full bg-black opacity-40' />
+      <div className='absolute inset-0 z-10 m-auto h-full w-full bg-black opacity-40' />
 
       <div className='absolute inset-0 m-auto flex items-center justify-center'>
         <CircleSpinner color='#00B1A6' />
