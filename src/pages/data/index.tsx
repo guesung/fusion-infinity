@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import Button from '@/components/buttons/Button';
 
-export default function Data() {
+export default function DataPage() {
   const router = useRouter();
   return (
     <div className='flex h-full flex-col items-center justify-center bg-white p-4 pb-12'>

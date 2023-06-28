@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 
 import Button from '@/components/buttons/Button';
 
-export default function Result() {
+export default function ResultPage() {
   const router = useRouter();
 
   return (
