@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['SF Pro Display'],
+        primary: ['Inter', 'SF Pro Display'],
       },
       colors: {
         main: '#00B1A6',
@@ -31,10 +31,31 @@ export default {
             backgroundPosition: '700px 0',
           },
         },
+        beatingHeart: {
+          '0%': {
+            transform: 'scale(1)',
+          },
+
+          '15%': {
+            transform: 'scale(1.02)',
+          },
+          '30%': {
+            transform: 'scale(1)',
+          },
+
+          '45%': {
+            transform: 'scale(1.02)',
+          },
+
+          '60%': {
+            transform: 'scale(1)',
+          },
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
+        beatingHeart: 'beatingHeart 1.3s linear infinite',
       },
     },
   },
