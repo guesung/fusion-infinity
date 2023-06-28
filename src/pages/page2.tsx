@@ -9,7 +9,7 @@ export default function Page2() {
       <div>Logo</div>
       <div className='fixed bottom-5 left-0 right-0 m-auto w-[25rem]'>
         <Button
-          text='모바일 통지서 연결하기'
+          text='데이터 분석하기'
           onClick={() => {
             router.push('/page3');
           }}
