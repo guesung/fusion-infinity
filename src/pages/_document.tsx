@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link
           rel='preload'
-          href='/fonts/inter-var-latin.woff2'
+          href='https://fonts.cdnfonts.com/css/sf-pro-display'
           as='font'
           type='font/woff2'
           crossOrigin='anonymous'
