@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Inter', 'SF Pro Display'],
+        primary: ['SF Pro Display'],
       },
       colors: {
         main: '#00B1A6',
