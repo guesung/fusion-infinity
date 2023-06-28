@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 
 import Button from '@/components/buttons/Button';
 
-export default function Page2() {
+export default function Data() {
   const router = useRouter();
   return (
     <div className='relative flex h-full items-center justify-center'>
@@ -11,7 +11,7 @@ export default function Page2() {
         <Button
           text='데이터 분석하기'
           onClick={() => {
-            router.push('/page3');
+            router.push('/result');
           }}
         />
       </div>
