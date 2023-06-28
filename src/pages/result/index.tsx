@@ -8,7 +8,10 @@ export default function ResultPage() {
 
   return (
     <div className='flex h-full flex-col p-4 pb-12'>
-      <div className='my-5 mt-10 text-[1.25rem] font-bold'>서비스명 ---</div>
+      <div className='my-5 mt-10 flex items-center gap-[0.375rem] text-[1.25rem] font-bold'>
+        <Image alt='logo' src='/svg/main-logo.svg' width={30} height={30} />
+        <p className='text-main text-xl'>에너지 지킴이</p>
+      </div>
       <div className='flex h-full flex-col gap-4'>
         <div className='rounded-3xl bg-white p-4'>
           <h1 className='text-bold mb-6 text-[20px] leading-tight'>

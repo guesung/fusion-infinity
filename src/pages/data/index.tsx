@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import Button from '@/components/buttons/Button';
@@ -6,7 +7,10 @@ export default function Data() {
   const router = useRouter();
   return (
     <div className='flex h-full flex-col  justify-center p-4 pb-12 '>
-      <div className='my-5 mt-10 text-[1.25rem] font-bold'>서비스명 ---</div>
+      <div className='my-5 mt-10 flex items-center gap-[0.375rem] text-[1.25rem] font-bold'>
+        <Image alt='logo' src='/svg/main-logo.svg' width={30} height={30} />
+        <p className='text-main text-xl'>에너지 지킴이</p>
+      </div>
       <div className='mb-5 flex w-full flex-grow flex-col   rounded-[1.5rem] bg-white px-4 py-[1.5rem]'>
         <div>
           <h2 className='font-bold'>이번 달 통지서</h2>
