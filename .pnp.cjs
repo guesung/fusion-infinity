@@ -55,6 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:18.2.0"],\
             ["react-icons", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:4.10.1"],\
+            ["react-spinner-overlay", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.1.33"],\
             ["tailwind-merge", "npm:1.13.2"],\
             ["tailwindcss", "npm:3.3.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"]\
@@ -10852,6 +10853,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-spinner-overlay", [\
+        ["npm:0.1.33", {\
+          "packageLocation": "./.yarn/cache/react-spinner-overlay-npm-0.1.33-41a5a53fa0-e9af52773e.zip/node_modules/react-spinner-overlay/",\
+          "packageDependencies": [\
+            ["react-spinner-overlay", "npm:0.1.33"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.1.33", {\
+          "packageLocation": "./.yarn/__virtual__/react-spinner-overlay-virtual-db04497a85/0/cache/react-spinner-overlay-npm-0.1.33-41a5a53fa0-e9af52773e.zip/node_modules/react-spinner-overlay/",\
+          "packageDependencies": [\
+            ["react-spinner-overlay", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.1.33"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:18.2.0"],\
+            ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["read-cache", [\
         ["npm:1.0.0", {\
           "packageLocation": "./.yarn/cache/read-cache-npm-1.0.0-00fa89ed05-cffc728b9e.zip/node_modules/read-cache/",\
@@ -12042,6 +12070,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:18.2.0"],\
             ["react-icons", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:4.10.1"],\
+            ["react-spinner-overlay", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.1.33"],\
             ["tailwind-merge", "npm:1.13.2"],\
             ["tailwindcss", "npm:3.3.2"],\
             ["typescript", "patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=289587"]\

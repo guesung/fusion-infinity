@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.9.0",
+    "react-spinner-overlay": "^0.1.33",
     "tailwind-merge": "^1.13.0"
   },
   "devDependencies": {
