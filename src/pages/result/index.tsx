@@ -1,6 +1,6 @@
 export default function Result() {
   return (
-    <div className='h-full p-4'>
+    <div className='h-full p-4 pb-12'>
       <div className='w-full rounded-3xl bg-white p-4'>
         <h1 className='text-bold mb-6 text-[20px]'>
           지난달 같은 기간 보다

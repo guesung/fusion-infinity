@@ -5,16 +5,14 @@ import Button from '@/components/buttons/Button';
 export default function Data() {
   const router = useRouter();
   return (
-    <div className='relative flex h-full items-center justify-center'>
-      <div>Logo</div>
-      <div className='fixed bottom-5 left-0 right-0 m-auto w-[25rem]'>
-        <Button
-          text='데이터 분석하기'
-          onClick={() => {
-            router.push('/result');
-          }}
-        />
-      </div>
+    <div className='flex h-full flex-col items-center justify-center bg-white p-4 pb-12'>
+      <div className='flex flex-grow items-center justify-center'>Logo</div>
+      <Button
+        text='데이터 분석하기'
+        onClick={() => {
+          router.push('/result');
+        }}
+      />
     </div>
   );
 }

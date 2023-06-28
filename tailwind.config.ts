@@ -37,14 +37,14 @@ export default {
           },
 
           '15%': {
-            transform: 'scale(1.02)',
+            transform: 'scale(0.98)',
           },
           '30%': {
             transform: 'scale(1)',
           },
 
           '45%': {
-            transform: 'scale(1.02)',
+            transform: 'scale(0.98)',
           },
 
           '60%': {
