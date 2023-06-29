@@ -11,6 +11,7 @@ export default function Document() {
           type='font/woff2'
           crossOrigin='anonymous'
         />
+        <link rel='icon' href='/svg/main-logo.svg' sizes='any' />
       </Head>
       <body>
         <Main />
