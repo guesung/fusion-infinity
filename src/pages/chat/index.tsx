@@ -1,55 +1,36 @@
 import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
 
 const APIURL = 'https://api.openai.com/v1/chat/completions';
 
-const messages: {
-  type: 'answer' | 'question';
-  content: string;
-}[] = [
-  {
-    type: 'question',
-    content: '우리집에서 낭비되고 있는 에너지 항목은?',
-  },
-  {
-    type: 'answer',
-    content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
-  },
-  {
-    type: 'question',
-    content: '전기에너지를 절약할 수 있는 방법은?',
-  },
-  {
-    type: 'answer',
-    content: `전기 에너지 절약을 위한 방법:
-    - 절전 가전제품 선택 
-    - 조명 관리 
-    - 에어컨 및 난방 사용
-    - 창문과 창문 씰링
-    - 스탠바이 모드 제거
-    - 전기차 주행 및 충전 관리
-    - 절전 모드 활용`,
-  },
-];
-
 export default function ChatPage() {
-  const [answer, setAnswer] = useState('');
+  const [messages, setMessages] = useState<
+    {
+      type: 'answer' | 'question';
+      content: string;
+    }[]
+  >([]);
+  const [question, setQuestion] = useState('');
+
+  const router = useRouter();
+
   const runOpenAI = async () => {
     const messageData = [];
     messageData.push({
       role: 'system',
-      content: '우리집에서 낭비되고 있는 에너지 항목은?',
+      content: question,
     });
+
     const response = await fetch(APIURL, {
       method: 'POST',
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
-        messages: messageData as any,
+        messages: messageData,
         max_tokens: 300,
         temperature: 0.7,
         stream: true,
@@ -68,80 +49,53 @@ export default function ChatPage() {
     if (!response.body) return;
     const reader = response.body.getReader();
     const decoder = new TextDecoder('utf-8');
-    const isFirst = true;
+
+    let isFirst = true;
+
     while (true) {
-      const chunk = await reader.read();
-      const { done, value } = chunk;
+      const { done, value } = await reader.read();
       if (done) break;
       const decodedCunk = decoder.decode(value);
       const lines = decodedCunk.split('\n');
-      const parse = lines.map((line) => line[0]);
+
       const parsedLines = lines
         .map((line) => line.replace(/^data: /, '').trim())
         .filter((line) => line !== '' && line !== '[DONE]')
         .map((line) => JSON.parse(line));
+
       for (const parsedLine of parsedLines) {
         const { choices } = parsedLine;
         const { delta } = choices[0];
         const { content } = delta;
-        console.log(content);
+
         if (content) {
-          // console.log(content);
-          // if (isFirst) {
-          //   setChatMessageListState([
-          //     ...chatMessageListState,
-          //     {
-          //       type: "message",
-          //       id: chatMessageListState.length + 1,
-          //       message: content,
-          //       isMine: false,
-          //     },
-          //   ]);
-          //   isFirst = false;
-          // } else {
-          setAnswer((answer) => answer + content);
-          // }
+          if (isFirst) {
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: 'answer',
+                content: content,
+              },
+            ]);
+            // setAnswer(content);
+            isFirst = false;
+          } else {
+            // setAnswer((answer) => answer + content);
+            setMessages((prev) => [
+              ...prev.slice(0, prev.length - 1),
+              {
+                type: 'answer',
+                content: prev[prev.length - 1].content + content,
+              },
+            ]);
+          }
         }
       }
     }
-    // console.log('aaaaa' + answer);
-    // setChatMessageListState((prev: chatMessageType[]) => [
-    //   ...prev,
-    //   {
-    //     type: "button",
-    //     id: prev.length + 1,
-    //     message: userInfo.selectQuestionList,
-    //     isMine: false,
-    //   },
-    // ]);
   };
-  useEffect(() => {
-    runOpenAI();
-  }, []);
-  // console.log(answer);
-
-  const [isShowSuggest, setIsShowSuggest] = useState(true);
-  const [step, setStep] = useState(0);
-
-  const router = useRouter();
-
-  useEffect(() => {
-    if (step === 1) {
-      setIsShowSuggest(false);
-    }
-
-    if (step % 2 === 0) {
-      return;
-    }
-
-    setTimeout(() => {
-      setStep((prev) => prev + 1);
-    }, 1000);
-  }, [step]);
 
   return (
-    <div className='flex h-screen flex-col pb-10'>
-      {/* {answer} */}
+    <div className='flex h-screen max-h-screen flex-col pb-10'>
       <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4 pt-14'>
         <div className='flex justify-between pb-[1.125rem]'>
           <Image
@@ -168,8 +122,8 @@ export default function ChatPage() {
           <br />
           저에게 무엇이든 요청해주세요.
         </div>
-        <div className='flex flex-grow flex-col overflow-y-scroll transition-all'>
-          <div className={`${isShowSuggest ? '' : 'hidden'}`}>
+        <div className='flex flex-grow flex-col overflow-y-scroll'>
+          <div className={`${messages.length ? 'hidden' : ''}`}>
             <div className='flex items-center justify-end pb-[.5625rem] pt-[.6875rem]'>
               <Image
                 src='/svg/contact-support.svg'
@@ -179,11 +133,49 @@ export default function ChatPage() {
               />
               <p className='text-main text-[.875rem] font-bold'>추천 질문</p>
             </div>
-            <SpeechBubble type='suggest' onClick={() => setStep(1)}>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '우리집에서 낭비되고 있는 에너지 항목은?',
+                  },
+                ]);
+                runOpenAI();
+              }}
+            >
               우리집에서 낭비되고 있는 에너지 항목은?
             </SpeechBubble>
-            <SpeechBubble type='suggest'>전기에너지 절약 방법은?</SpeechBubble>
-            <SpeechBubble type='suggest'>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '전기에너지 절약 방법은?',
+                  },
+                ]);
+                runOpenAI();
+              }}
+            >
+              전기에너지 절약 방법은?
+            </SpeechBubble>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '평균 에너지 소비량을 넘긴 항목을 분석해줘.',
+                  },
+                ]);
+                runOpenAI();
+              }}
+            >
               평균 에너지 소비량을 넘긴 항목을 분석해줘.
             </SpeechBubble>
           </div>
@@ -191,14 +183,30 @@ export default function ChatPage() {
 
         <div className='flex-grow'></div>
 
-        {messages.slice(0, step).map((message, index) => (
-          <AnimatePresence key={index}>
-            <SpeechBubble type={message.type}>{message.content}</SpeechBubble>
-          </AnimatePresence>
-        ))}
+        <AnimatePresence>
+          {messages.map((message, index) => (
+            <SpeechBubble key={index} type={message.type}>
+              {message.content}
+            </SpeechBubble>
+          ))}
+        </AnimatePresence>
       </div>
       <div className='px-4'>
-        <Input onClick={() => setStep((prev) => prev + 1)} />
+        <Input
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onClick={() => {
+            runOpenAI();
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: 'question',
+                content: question,
+              },
+            ]);
+            setQuestion('');
+          }}
+        />
       </div>
     </div>
   );
