@@ -28,6 +28,10 @@
   /* #endregion  /**======== Primary Color =========== */
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   /* inter var - latin */
   /* @font-face {
