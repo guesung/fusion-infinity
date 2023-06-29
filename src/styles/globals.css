@@ -43,6 +43,8 @@
     font-family: 'SF Pro Display', sans-serif;
     color: #080808;
     user-select: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
   .cursor-newtab {
     cursor: url('/images/new-tab.png') 10 10, pointer;

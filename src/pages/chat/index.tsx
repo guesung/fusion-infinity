@@ -23,6 +23,14 @@ export default function ChatPage() {
       type: 'answer',
       content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
     },
+    {
+      type: 'question',
+      content: '전기에너지를 절약할 수 있는 방법은?',
+    },
+    {
+      type: 'answer',
+      content: '전기에너지를 절약할 수 있는 방법은 다음과 같습니다.',
+    },
   ];
 
   const router = useRouter();
@@ -31,6 +39,14 @@ export default function ChatPage() {
     if (step === 1) {
       setIsShowSuggest(false);
     }
+
+    if (step % 2 === 0) {
+      return;
+    }
+
+    setTimeout(() => {
+      setStep((prev) => prev + 1);
+    }, 1000);
   }, [step]);
 
   return (
@@ -90,9 +106,7 @@ export default function ChatPage() {
 
         {messages.slice(0, step).map((message, index) => (
           <AnimatePresence key={index}>
-            <SpeechBubble type={message.type} onClick={() => setStep(step + 1)}>
-              {message.content}
-            </SpeechBubble>
+            <SpeechBubble type={message.type}>{message.content}</SpeechBubble>
           </AnimatePresence>
         ))}
       </div>
