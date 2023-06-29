@@ -34,7 +34,7 @@ export default function Data() {
 
       <div className='my-5 mt-10 flex items-center gap-[0.375rem] text-[1.25rem] font-bold'>
         <Image alt='logo' src='/svg/main-logo.svg' width={30} height={30} />
-        <p className='text-main text-xl'>에너지 지킴이</p>
+        <p className='text-main text-xl'>EnerGPT</p>
       </div>
       <div className='mb-5 flex w-full flex-grow flex-col  rounded-[1.5rem] bg-white px-4 py-[1.5rem]'>
         <div className='h-[5rem]'>

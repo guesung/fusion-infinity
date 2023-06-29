@@ -10,7 +10,7 @@ export default function ResultPage() {
     <div className='flex h-full flex-col p-4 pb-12'>
       <div className='my-5 mt-10 flex items-center gap-[0.375rem] text-[1.25rem] font-bold'>
         <Image alt='logo' src='/svg/main-logo.svg' width={30} height={30} />
-        <p className='text-main text-xl'>에너지 지킴이</p>
+        <p className='text-main text-xl'>EnerGPT</p>
       </div>
       <div className='flex h-full flex-col gap-4'>
         <div className='rounded-3xl bg-white p-4'>

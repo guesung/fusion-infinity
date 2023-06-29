@@ -12,9 +12,7 @@ const Logo = () => {
         className='animate-mainLogo [animation-fill-mode:forwards]'
       />
       <span className='animate-mainText text-[26px] font-bold leading-6 text-[#00B1A6] [animation-fill-mode:forwards]'>
-        에너지
-        <br />
-        지킴이
+        EnerGPT
       </span>
     </div>
   );
