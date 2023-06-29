@@ -6,8 +6,6 @@ import { useEffect, useState } from 'react';
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
 
-const APIURL = 'https://api.openai.com/v1/chat/completions';
-
 const messages: {
   type: 'answer' | 'question';
   content: string;
@@ -39,86 +37,6 @@ const messages: {
 
 export default function ChatPage() {
   const [answer, setAnswer] = useState('');
-  const runOpenAI = async () => {
-    const messageData = [];
-    messageData.push({
-      role: 'system',
-      content: '우리집에서 낭비되고 있는 에너지 항목은?',
-    });
-    const response = await fetch(APIURL, {
-      method: 'POST',
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        messages: messageData as any,
-        max_tokens: 300,
-        temperature: 0.7,
-        stream: true,
-        top_p: 1,
-        presence_penalty: 0,
-        frequency_penalty: 0,
-        n: 1,
-      }),
-
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-      },
-    });
-
-    if (!response.body) return;
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder('utf-8');
-    const isFirst = true;
-    while (true) {
-      const chunk = await reader.read();
-      const { done, value } = chunk;
-      if (done) break;
-      const decodedCunk = decoder.decode(value);
-      const lines = decodedCunk.split('\n');
-      const parse = lines.map((line) => line[0]);
-      const parsedLines = lines
-        .map((line) => line.replace(/^data: /, '').trim())
-        .filter((line) => line !== '' && line !== '[DONE]')
-        .map((line) => JSON.parse(line));
-      for (const parsedLine of parsedLines) {
-        const { choices } = parsedLine;
-        const { delta } = choices[0];
-        const { content } = delta;
-        console.log(content);
-        if (content) {
-          // console.log(content);
-          // if (isFirst) {
-          //   setChatMessageListState([
-          //     ...chatMessageListState,
-          //     {
-          //       type: "message",
-          //       id: chatMessageListState.length + 1,
-          //       message: content,
-          //       isMine: false,
-          //     },
-          //   ]);
-          //   isFirst = false;
-          // } else {
-          setAnswer((answer) => answer + content);
-          // }
-        }
-      }
-    }
-    // console.log('aaaaa' + answer);
-    // setChatMessageListState((prev: chatMessageType[]) => [
-    //   ...prev,
-    //   {
-    //     type: "button",
-    //     id: prev.length + 1,
-    //     message: userInfo.selectQuestionList,
-    //     isMine: false,
-    //   },
-    // ]);
-  };
-  useEffect(() => {
-    runOpenAI();
-  }, []);
-  // console.log(answer);
 
   const [isShowSuggest, setIsShowSuggest] = useState(true);
   const [step, setStep] = useState(0);
