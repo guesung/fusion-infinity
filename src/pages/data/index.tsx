@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { CircleSpinner } from 'react-spinner-overlay';
 
 import Button from '@/components/buttons/Button';
 import Skeleton from '@/components/Skeleton';
@@ -8,14 +9,29 @@ import Skeleton from '@/components/Skeleton';
 export default function Data() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [afterLoading, setAfterLoading] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1000);
   }, []);
+  if (afterLoading) {
+    setTimeout(() => {
+      router.push('/result');
+    }, 1000);
+  }
 
   return (
     <div className='flex h-full flex-col justify-center p-4 pb-12 '>
+      {afterLoading && (
+        <div>
+          <div className='absolute inset-0 z-10 m-auto h-full w-full bg-black opacity-40' />
+          <div className='absolute inset-0 m-auto flex items-center justify-center'>
+            <CircleSpinner color='#00B1A6' />
+          </div>
+        </div>
+      )}
+
       <div className='my-5 mt-10 flex items-center gap-[0.375rem] text-[1.25rem] font-bold'>
         <Image alt='logo' src='/svg/main-logo.svg' width={30} height={30} />
         <p className='text-main text-xl'>에너지 지킴이</p>
@@ -106,7 +122,7 @@ export default function Data() {
       <Button
         text='데이터 분석하기'
         onClick={() => {
-          router.push('/result-loading');
+          setAfterLoading(true);
         }}
       />
     </div>
