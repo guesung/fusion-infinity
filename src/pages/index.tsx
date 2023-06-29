@@ -6,7 +6,7 @@ import Logo from '@/components/Logo';
 export default function HomePage() {
   const router = useRouter();
   return (
-    <div className='flex h-full flex-col items-center justify-center bg-white p-4 pb-12'>
+    <div className='flex min-h-screen flex-col items-center justify-center bg-white p-4 pb-12'>
       <div className='flex flex-grow items-center justify-center'>
         <Logo />
       </div>
