@@ -14,9 +14,8 @@ export default function ResultLoading() {
   }, []);
   return (
     <>
-      <div className='relative flex h-full flex-col justify-center p-4 pb-12'>
+      <div className='relative flex h-full min-h-screen flex-col justify-center p-4 pb-12'>
         <div className='absolute inset-0 z-10 m-auto h-full w-full bg-black opacity-40' />
-
         <div className='absolute inset-0 m-auto flex items-center justify-center'>
           <CircleSpinner color='#00B1A6' />
         </div>
@@ -76,13 +75,13 @@ export default function ResultLoading() {
             </div>
           </div>
         </div>
+        <Button
+          text='데이터 분석하기'
+          onClick={() => {
+            router.push('/result-loading');
+          }}
+        />
       </div>
-      <Button
-        text='데이터 분석하기'
-        onClick={() => {
-          router.push('/result-loading');
-        }}
-      />
     </>
   );
 }
