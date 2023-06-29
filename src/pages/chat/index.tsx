@@ -9,31 +9,17 @@ import SpeechBubble from '@/components/SpeechBubble';
 
 const APIURL = 'https://api.openai.com/v1/chat/completions';
 
-export default function ChatPage() {
-  const [messages, setMessages] = useState<
-    {
-      type: 'answer' | 'question';
-      content: string;
-    }[]
-  >([]);
-  const [question, setQuestion] = useState('');
-
-  const router = useRouter();
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  const runOpenAI = async (text: string) => {
-    const messageData = [
-      {
-        role: 'system',
-        content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. `,
-      },
-      {
-        role: 'system',
-        content: `
-        
-        이건 우리집에서 나온 통지서야. 
-        이번 달  총 183,295원
+const messageData = [
+  {
+    role: 'system',
+    content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. `,
+  },
+  {
+    role: 'system',
+    content: `
+    
+    이건 우리집에서 나온 통지서야. 
+    이번 달  총 183,295원
 이건 고정비야.
 
 일반관리비 45,590원
@@ -53,13 +39,28 @@ export default function ChatPage() {
 수도료 13,390원
 가스료 2,150원
 난방비 5,310원
-        `,
-      },
-      {
-        role: 'system',
-        content: `사용자가 질문하면 너는 답변할 때 친절하고 쉽고 짧고 깔끔하게 답변해야돼. 이제 질문 시작할게.`,
-      },
-    ];
+    `,
+  },
+  {
+    role: 'system',
+    content: `사용자가 질문하면 너는 답변할 때 친절하고 쉽고 짧고 깔끔하게 답변해야돼. 이제 질문 시작할게.`,
+  },
+];
+
+export default function ChatPage() {
+  const [messages, setMessages] = useState<
+    {
+      type: 'answer' | 'question';
+      content: string;
+    }[]
+  >([]);
+  const [question, setQuestion] = useState('');
+
+  const router = useRouter();
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const runOpenAI = async (text: string) => {
     messageData.push({
       role: 'system',
       content: text,
