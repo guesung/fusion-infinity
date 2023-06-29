@@ -1,9 +1,12 @@
+import { motion } from 'framer-motion';
+
 interface SpeechBubbleProps {
   type: 'answer' | 'question' | 'suggest';
   className?: string;
   children: React.ReactNode;
   onClick?: () => void;
 }
+
 const typeCssMap = {
   suggest:
     'mb-4 rounded-[1.5rem_1.5rem_0_1.5rem] border border-solid border-[rgba(0,177,166,0.10)] p-4 text-[#00B1A6] shadow-[0_0_0.5rem_0_rgba(0,177,166,0.20)] active:bg-[#00B1A6] active:text-white',
@@ -20,7 +23,10 @@ const SpeechBubble = ({
   onClick,
 }: SpeechBubbleProps) => {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 100 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, transition: { duration: 0.15 } }}
       className={`flex ${type === 'answer' ? 'justify-start' : 'justify-end'}`}
     >
       <span
@@ -29,7 +35,7 @@ const SpeechBubble = ({
       >
         {children}
       </span>
-    </div>
+    </motion.div>
   );
 };
 
