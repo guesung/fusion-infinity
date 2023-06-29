@@ -1,65 +1,139 @@
 import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
 
-const messages: {
-  type: 'answer' | 'question';
-  content: string;
-}[] = [
-  {
-    type: 'question',
-    content: '우리집에서 낭비되고 있는 에너지 항목은?',
-  },
-  {
-    type: 'answer',
-    content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
-  },
-  {
-    type: 'question',
-    content: '전기에너지를 절약할 수 있는 방법은?',
-  },
-  {
-    type: 'answer',
-    content: `전기 에너지 절약을 위한 방법:
-    - 절전 가전제품 선택 
-    - 조명 관리 
-    - 에어컨 및 난방 사용
-    - 창문과 창문 씰링
-    - 스탠바이 모드 제거
-    - 전기차 주행 및 충전 관리
-    - 절전 모드 활용`,
-  },
-];
+const APIURL = 'https://api.openai.com/v1/chat/completions';
 
 export default function ChatPage() {
-  const [answer, setAnswer] = useState('');
-
-  const [isShowSuggest, setIsShowSuggest] = useState(true);
-  const [step, setStep] = useState(0);
+  const [messages, setMessages] = useState<
+    {
+      type: 'answer' | 'question';
+      content: string;
+    }[]
+  >([]);
+  const [question, setQuestion] = useState('');
 
   const router = useRouter();
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const runOpenAI = async (text: string) => {
+    const messageData = [
+      {
+        role: 'system',
+        content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. 한 문장으로 깔끔하게 답변해줘.`,
+      },
+      {
+        role: 'system',
+        content: `이건 우리집에서 나온 통지서야. 
+        이번 달  총 183,295원
+이건 고정비야.
+
+일반관리비 45,590원
+청소비 13,390원
+승강기유지비 3,420원
+수선유지비 6,310원
+장기수선충당금 12,620원
+경비비 13,506원
+공동전기료 9,340원
+승강기전기 2,860원
+공동수도료 8,689원
+기본난방비 10,560원
+
+이건 변동비야.
+
+전기료 39,350원
+수도료 13,390원
+가스료 2,150원
+난방비 5,310원
+        `,
+      },
+      {
+        role: 'system',
+        content: `사용자가 분석 결과를 요구했다면 수치화해서 구체적으로 깔끔하고 쉽고, 친절하게 답변해줘.`,
+      },
+    ];
+    messageData.push({
+      role: 'system',
+      content: text,
+    });
+
+    const response = await fetch(APIURL, {
+      method: 'POST',
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: messageData,
+        max_tokens: 600,
+        temperature: 0.7,
+        stream: true,
+        top_p: 1,
+        presence_penalty: 0,
+        frequency_penalty: 0,
+        n: 1,
+      }),
+
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
+      },
+    });
+
+    if (!response.body) return;
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+
+    let isFirst = true;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const decodedCunk = decoder.decode(value);
+      const lines = decodedCunk.split('\n');
+
+      const parsedLines = lines
+        .map((line) => line.replace(/^data: /, '').trim())
+        .filter((line) => line !== '' && line !== '[DONE]')
+        .map((line) => JSON.parse(line));
+
+      for (const parsedLine of parsedLines) {
+        const { choices } = parsedLine;
+        const { delta } = choices[0];
+        const { content } = delta;
+
+        if (content) {
+          if (isFirst) {
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: 'answer',
+                content: content,
+              },
+            ]);
+            isFirst = false;
+          } else {
+            setMessages((prev) => [
+              ...prev.slice(0, prev.length - 1),
+              {
+                type: 'answer',
+                content: prev[prev.length - 1].content + content,
+              },
+            ]);
+          }
+        }
+      }
+    }
+  };
+  
   useEffect(() => {
-    if (step === 1) {
-      setIsShowSuggest(false);
-    }
-
-    if (step % 2 === 0) {
-      return;
-    }
-
-    setTimeout(() => {
-      setStep((prev) => prev + 1);
-    }, 1000);
-  }, [step]);
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
-    <div className='flex h-screen flex-col pb-10'>
-      {/* {answer} */}
+    <div className='flex h-screen max-h-screen flex-col pb-10'>
       <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4 pt-14'>
         <div className='flex justify-between pb-[1.125rem]'>
           <Image
@@ -86,8 +160,8 @@ export default function ChatPage() {
           <br />
           저에게 무엇이든 요청해주세요.
         </div>
-        <div className='flex flex-grow flex-col overflow-y-scroll transition-all'>
-          <div className={`${isShowSuggest ? '' : 'hidden'}`}>
+        <div className='flex h-[300px] flex-grow flex-col overflow-y-scroll'>
+          <div className={`${messages.length ? 'hidden' : ''}`}>
             <div className='flex items-center justify-end pb-[.5625rem] pt-[.6875rem]'>
               <Image
                 src='/svg/contact-support.svg'
@@ -97,26 +171,85 @@ export default function ChatPage() {
               />
               <p className='text-main text-[.875rem] font-bold'>추천 질문</p>
             </div>
-            <SpeechBubble type='suggest' onClick={() => setStep(1)}>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '우리집에서 낭비되고 있는 에너지 항목은?',
+                  },
+                ]);
+
+                runOpenAI('우리집에서 낭비되고 있는 에너지 항목은?');
+              }}
+            >
               우리집에서 낭비되고 있는 에너지 항목은?
             </SpeechBubble>
-            <SpeechBubble type='suggest'>전기에너지 절약 방법은?</SpeechBubble>
-            <SpeechBubble type='suggest'>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '전기에너지 절약 방법은?',
+                  },
+                ]);
+
+                runOpenAI('전기에너지 절약 방법은?');
+              }}
+            >
+              전기에너지 절약 방법은?
+            </SpeechBubble>
+            <SpeechBubble
+              type='suggest'
+              onClick={() => {
+                setMessages((prev) => [
+                  ...prev,
+                  {
+                    type: 'question',
+                    content: '평균 에너지 소비량을 넘긴 항목을 분석해줘.',
+                  },
+                ]);
+
+                runOpenAI('평균 에너지 소비량을 넘긴 항목을 분석해줘.');
+              }}
+            >
               평균 에너지 소비량을 넘긴 항목을 분석해줘.
             </SpeechBubble>
           </div>
-        </div>
 
-        <div className='flex-grow'></div>
+          <div className='flex-grow'></div>
 
-        {messages.slice(0, step).map((message, index) => (
-          <AnimatePresence key={index}>
-            <SpeechBubble type={message.type}>{message.content}</SpeechBubble>
+          <AnimatePresence>
+            {messages.map((message, index) => (
+              <SpeechBubble key={index} type={message.type}>
+                {message.content}
+              </SpeechBubble>
+            ))}
           </AnimatePresence>
-        ))}
+          <div ref={scrollRef}></div>
+        </div>
       </div>
       <div className='px-4'>
-        <Input onClick={() => setStep((prev) => prev + 1)} />
+        <Input
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          onClick={() => {
+            setMessages((prev) => [
+              ...prev,
+              {
+                type: 'question',
+                content: question,
+              },
+            ]);
+
+            runOpenAI(question);
+            setQuestion('');
+          }}
+        />
       </div>
     </div>
   );

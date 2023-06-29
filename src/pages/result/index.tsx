@@ -29,7 +29,7 @@ export default function ResultPage() {
             </div>
             <span className='bg-main my-[.3125rem] w-[.0625rem] items-stretch'></span>
             <div className='flex w-[100px] flex-col items-center text-[.875rem]'>
-              <p>이번달</p>
+              <p>지난달</p>
               <p className='flex items-center gap-[.3125rem]'>
                 <b className='text-[24px]'>267</b>kwh
               </p>
