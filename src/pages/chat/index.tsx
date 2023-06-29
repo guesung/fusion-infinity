@@ -6,32 +6,31 @@ import { useEffect, useState } from 'react';
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
 
-type Message = {
+const messages: {
   type: 'answer' | 'question';
   content: string;
-};
+}[] = [
+  {
+    type: 'question',
+    content: '우리집에서 낭비되고 있는 에너지 항목은?',
+  },
+  {
+    type: 'answer',
+    content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
+  },
+  {
+    type: 'question',
+    content: '전기에너지를 절약할 수 있는 방법은?',
+  },
+  {
+    type: 'answer',
+    content: '전기에너지를 절약할 수 있는 방법은 다음과 같습니다.',
+  },
+];
 
 export default function ChatPage() {
   const [isShowSuggest, setIsShowSuggest] = useState(true);
   const [step, setStep] = useState(0);
-  const messages: Message[] = [
-    {
-      type: 'question',
-      content: '우리집에서 낭비되고 있는 에너지 항목은?',
-    },
-    {
-      type: 'answer',
-      content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
-    },
-    {
-      type: 'question',
-      content: '전기에너지를 절약할 수 있는 방법은?',
-    },
-    {
-      type: 'answer',
-      content: '전기에너지를 절약할 수 있는 방법은 다음과 같습니다.',
-    },
-  ];
 
   const router = useRouter();
 
@@ -73,7 +72,7 @@ export default function ChatPage() {
           </div>
         </div>
         <div className='my-4 rounded-3xl bg-[rgba(0,177,166,0.10)] px-4 py-5 leading-tight text-[#999]'>
-          안녕하세요! 모두를 위한 AI 포털 뤼튼이에요.
+          안녕하세요! 우리 모두의 에너지 절약 AI 솔루션입니다.
           <br />
           저에게 무엇이든 요청해주세요.
         </div>
@@ -91,13 +90,9 @@ export default function ChatPage() {
             <SpeechBubble type='suggest' onClick={() => setStep(1)}>
               우리집에서 낭비되고 있는 에너지 항목은?
             </SpeechBubble>
+            <SpeechBubble type='suggest'>전기에너지 절약 방법은?</SpeechBubble>
             <SpeechBubble type='suggest'>
-              우주복을 입은 강아지 캐릭터를 그려줘.
-              <br />
-              우주복을 입은 강아지 캐릭터를 그려줘.
-            </SpeechBubble>
-            <SpeechBubble type='suggest' className='m'>
-              우주복을 입은 강아지 캐릭터를 그려줘.
+              평균 에너지 소비량을 넘긴 항목을 분석해줘.
             </SpeechBubble>
           </div>
         </div>
