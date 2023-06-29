@@ -35,7 +35,7 @@ export default function ChatPage() {
 
   return (
     <div className='flex h-screen flex-col pb-10'>
-      <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4'>
+      <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4 pt-14'>
         <div className='flex justify-between pb-[1.125rem]'>
           <Image
             src='/svg/arrow-back.svg'
@@ -56,7 +56,7 @@ export default function ChatPage() {
             />
           </div>
         </div>
-        <div className='my-4 rounded-3xl bg-[rgba(0,177,166,0.10)] px-4 py-5 leading-none text-[#999]'>
+        <div className='my-4 rounded-3xl bg-[rgba(0,177,166,0.10)] px-4 py-5 leading-tight text-[#999]'>
           안녕하세요! 모두를 위한 AI 포털 뤼튼이에요.
           <br />
           저에게 무엇이든 요청해주세요.

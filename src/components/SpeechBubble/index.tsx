@@ -22,6 +22,19 @@ const SpeechBubble = ({
   className = '',
   onClick,
 }: SpeechBubbleProps) => {
+  if (type === 'suggest') {
+    return (
+      <div className='flex justify-end'>
+        <span
+          className={`${typeCssMap['suggest']} ${className} cursor-pointer`}
+          onClick={onClick}
+        >
+          {children}
+        </span>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 100 }}
@@ -29,10 +42,7 @@ const SpeechBubble = ({
       exit={{ opacity: 0, transition: { duration: 0.15 } }}
       className={`flex ${type === 'answer' ? 'justify-start' : 'justify-end'}`}
     >
-      <span
-        className={`${typeCssMap[type]} ${className} cursor-pointer`}
-        onClick={onClick}
-      >
+      <span className={`${typeCssMap[type]} ${className}`} onClick={onClick}>
         {children}
       </span>
     </motion.div>
