@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
@@ -19,11 +19,47 @@ export default function ChatPage() {
 
   const router = useRouter();
 
-  const runOpenAI = async () => {
-    const messageData = [];
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const runOpenAI = async (text: string) => {
+    const messageData = [
+      {
+        role: 'system',
+        content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. 한 문장으로 깔끔하게 답변해줘.`,
+      },
+      {
+        role: 'system',
+        content: `이건 우리집에서 나온 통지서야. 
+        이번 달  총 183,295원
+이건 고정비야.
+
+일반관리비 45,590원
+청소비 13,390원
+승강기유지비 3,420원
+수선유지비 6,310원
+장기수선충당금 12,620원
+경비비 13,506원
+공동전기료 9,340원
+승강기전기 2,860원
+공동수도료 8,689원
+기본난방비 10,560원
+
+이건 변동비야.
+
+전기료 39,350원
+수도료 13,390원
+가스료 2,150원
+난방비 5,310원
+        `,
+      },
+      {
+        role: 'system',
+        content: `사용자가 분석 결과를 요구했다면 수치화해서 구체적으로 깔끔하고 쉽고, 친절하게 답변해줘.`,
+      },
+    ];
     messageData.push({
       role: 'system',
-      content: question,
+      content: text,
     });
 
     const response = await fetch(APIURL, {
@@ -31,7 +67,7 @@ export default function ChatPage() {
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',
         messages: messageData,
-        max_tokens: 300,
+        max_tokens: 600,
         temperature: 0.7,
         stream: true,
         top_p: 1,
@@ -77,10 +113,8 @@ export default function ChatPage() {
                 content: content,
               },
             ]);
-            // setAnswer(content);
             isFirst = false;
           } else {
-            // setAnswer((answer) => answer + content);
             setMessages((prev) => [
               ...prev.slice(0, prev.length - 1),
               {
@@ -93,6 +127,10 @@ export default function ChatPage() {
       }
     }
   };
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <div className='flex h-screen max-h-screen flex-col pb-10'>
@@ -122,7 +160,7 @@ export default function ChatPage() {
           <br />
           저에게 무엇이든 요청해주세요.
         </div>
-        <div className='flex flex-grow flex-col overflow-y-scroll'>
+        <div className='flex h-[300px] flex-grow flex-col overflow-y-scroll'>
           <div className={`${messages.length ? 'hidden' : ''}`}>
             <div className='flex items-center justify-end pb-[.5625rem] pt-[.6875rem]'>
               <Image
@@ -143,7 +181,8 @@ export default function ChatPage() {
                     content: '우리집에서 낭비되고 있는 에너지 항목은?',
                   },
                 ]);
-                runOpenAI();
+
+                runOpenAI('우리집에서 낭비되고 있는 에너지 항목은?');
               }}
             >
               우리집에서 낭비되고 있는 에너지 항목은?
@@ -158,7 +197,8 @@ export default function ChatPage() {
                     content: '전기에너지 절약 방법은?',
                   },
                 ]);
-                runOpenAI();
+
+                runOpenAI('전기에너지 절약 방법은?');
               }}
             >
               전기에너지 절약 방법은?
@@ -173,30 +213,31 @@ export default function ChatPage() {
                     content: '평균 에너지 소비량을 넘긴 항목을 분석해줘.',
                   },
                 ]);
-                runOpenAI();
+
+                runOpenAI('평균 에너지 소비량을 넘긴 항목을 분석해줘.');
               }}
             >
               평균 에너지 소비량을 넘긴 항목을 분석해줘.
             </SpeechBubble>
           </div>
+
+          <div className='flex-grow'></div>
+
+          <AnimatePresence>
+            {messages.map((message, index) => (
+              <SpeechBubble key={index} type={message.type}>
+                {message.content}
+              </SpeechBubble>
+            ))}
+          </AnimatePresence>
+          <div ref={scrollRef}></div>
         </div>
-
-        <div className='flex-grow'></div>
-
-        <AnimatePresence>
-          {messages.map((message, index) => (
-            <SpeechBubble key={index} type={message.type}>
-              {message.content}
-            </SpeechBubble>
-          ))}
-        </AnimatePresence>
       </div>
       <div className='px-4'>
         <Input
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           onClick={() => {
-            runOpenAI();
             setMessages((prev) => [
               ...prev,
               {
@@ -204,6 +245,8 @@ export default function ChatPage() {
                 content: question,
               },
             ]);
+
+            runOpenAI(question);
             setQuestion('');
           }}
         />

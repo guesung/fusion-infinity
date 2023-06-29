@@ -46,7 +46,7 @@
   * {
     font-family: 'SF Pro Display', sans-serif;
     color: #080808;
-    user-select: none;
+    /* user-select: none; */
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
