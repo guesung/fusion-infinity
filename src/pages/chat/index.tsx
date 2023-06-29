@@ -26,7 +26,14 @@ const messages: {
   },
   {
     type: 'answer',
-    content: '전기에너지를 절약할 수 있는 방법은 다음과 같습니다.',
+    content: `전기 에너지 절약을 위한 방법:
+    - 절전 가전제품 선택 
+    - 조명 관리 
+    - 에어컨 및 난방 사용
+    - 창문과 창문 씰링
+    - 스탠바이 모드 제거
+    - 전기차 주행 및 충전 관리
+    - 절전 모드 활용`,
   },
 ];
 
@@ -77,6 +84,7 @@ export default function ChatPage() {
         const { choices } = parsedLine;
         const { delta } = choices[0];
         const { content } = delta;
+        console.log(content);
         if (content) {
           // console.log(content);
           // if (isFirst) {
@@ -96,7 +104,7 @@ export default function ChatPage() {
         }
       }
     }
-    console.log('aaaaa' + answer);
+    // console.log('aaaaa' + answer);
     // setChatMessageListState((prev: chatMessageType[]) => [
     //   ...prev,
     //   {
@@ -110,7 +118,7 @@ export default function ChatPage() {
   useEffect(() => {
     runOpenAI();
   }, []);
-  console.log(answer);
+  // console.log(answer);
 
   const [isShowSuggest, setIsShowSuggest] = useState(true);
   const [step, setStep] = useState(0);
@@ -133,7 +141,7 @@ export default function ChatPage() {
 
   return (
     <div className='flex h-screen flex-col pb-10'>
-      {answer}
+      {/* {answer} */}
       <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4 pt-14'>
         <div className='flex justify-between pb-[1.125rem]'>
           <Image
