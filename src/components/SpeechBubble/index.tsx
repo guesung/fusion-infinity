@@ -42,7 +42,10 @@ const SpeechBubble = ({
       exit={{ opacity: 0, transition: { duration: 0.15 } }}
       className={`flex ${type === 'answer' ? 'justify-start' : 'justify-end'}`}
     >
-      <span className={`${typeCssMap[type]} ${className}`} onClick={onClick}>
+      <span
+        className={`${typeCssMap[type]} ${className} whitespace-pre-wrap`}
+        onClick={onClick}
+      >
         {children}
       </span>
     </motion.div>

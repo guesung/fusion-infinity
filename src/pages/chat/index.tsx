@@ -26,11 +26,13 @@ export default function ChatPage() {
     const messageData = [
       {
         role: 'system',
-        content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. 한 문장으로 깔끔하게 답변해줘.`,
+        content: `너는 우리 서비스 'EnerGPT' 의 챗봇이야. 우리 서비스는 사용자의 에너지 사용량을 분석해 에너지 절약 방법을 제공해주는 서비스야. 너는 사용자의 질문에 답변을 해주는 역할을 맡고 있어. `,
       },
       {
         role: 'system',
-        content: `이건 우리집에서 나온 통지서야. 
+        content: `
+        
+        이건 우리집에서 나온 통지서야. 
         이번 달  총 183,295원
 이건 고정비야.
 
@@ -55,7 +57,7 @@ export default function ChatPage() {
       },
       {
         role: 'system',
-        content: `사용자가 분석 결과를 요구했다면 수치화해서 구체적으로 깔끔하고 쉽고, 친절하게 답변해줘.`,
+        content: `사용자가 질문하면 너는 답변할 때 친절하고 쉽고 짧고 깔끔하게 답변해야돼. 이제 질문 시작할게.`,
       },
     ];
     messageData.push({
