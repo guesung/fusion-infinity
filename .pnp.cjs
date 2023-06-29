@@ -45,6 +45,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:8.8.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:7.0.0"],\
             ["eslint-plugin-unused-imports", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:2.0.0"],\
+            ["framer-motion", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:10.12.17"],\
             ["jest", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:27.5.1"],\
             ["next", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:13.4.7"],\
             ["next-router-mock", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.7.5"],\
@@ -3034,6 +3035,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@cspotcode/source-map-support", "npm:0.8.1"],\
             ["@jridgewell/trace-mapping", "npm:0.3.9"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@emotion/is-prop-valid", [\
+        ["npm:0.8.8", {\
+          "packageLocation": "./.yarn/cache/@emotion-is-prop-valid-npm-0.8.8-261a0f2426-bb7ec6d48c.zip/node_modules/@emotion/is-prop-valid/",\
+          "packageDependencies": [\
+            ["@emotion/is-prop-valid", "npm:0.8.8"],\
+            ["@emotion/memoize", "npm:0.7.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@emotion/memoize", [\
+        ["npm:0.7.4", {\
+          "packageLocation": "./.yarn/cache/@emotion-memoize-npm-0.7.4-5648cf11b8-4e3920d4ec.zip/node_modules/@emotion/memoize/",\
+          "packageDependencies": [\
+            ["@emotion/memoize", "npm:0.7.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -7377,6 +7397,34 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/fraction.js-npm-4.2.0-28efe4afc7-8c76a6e21d.zip/node_modules/fraction.js/",\
           "packageDependencies": [\
             ["fraction.js", "npm:4.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["framer-motion", [\
+        ["npm:10.12.17", {\
+          "packageLocation": "./.yarn/cache/framer-motion-npm-10.12.17-077e29e042-d36fbc7fab.zip/node_modules/framer-motion/",\
+          "packageDependencies": [\
+            ["framer-motion", "npm:10.12.17"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:10.12.17", {\
+          "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-92de66db38/0/cache/framer-motion-npm-10.12.17-077e29e042-d36fbc7fab.zip/node_modules/framer-motion/",\
+          "packageDependencies": [\
+            ["framer-motion", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:10.12.17"],\
+            ["@emotion/is-prop-valid", "npm:0.8.8"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:18.2.0"],\
+            ["tslib", "npm:2.5.3"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12060,6 +12108,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-prettier", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:8.8.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:7.0.0"],\
             ["eslint-plugin-unused-imports", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:2.0.0"],\
+            ["framer-motion", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:10.12.17"],\
             ["jest", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:27.5.1"],\
             ["next", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:13.4.7"],\
             ["next-router-mock", "virtual:9dd178ac6ea65fc67a6b5cf9bf78107bb0f7a7912cb64efb8e932bf981007d21a9e7a66efa17aa0b63f5161acb983804484a466c28376b556c126011e13d0002#npm:0.7.5"],\

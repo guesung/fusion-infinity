@@ -94,6 +94,16 @@ export default {
             opacity: '1',
           },
         },
+        chat: {
+          '0%': {
+            transform: 'translateY(100px)',
+            opacity: '0',
+          },
+          '100%': {
+            transform: 'translateY(0px)',
+            opacity: '1',
+          },
+        },
       },
       animation: {
         flicker: 'flicker 3s linear infinite',
@@ -102,6 +112,7 @@ export default {
         skeleton: 'skeleton 1.5s ease-in-out infinite',
         mainLogo: 'mainLogo 1s ease-in',
         mainText: 'mainText 1s linear ',
+        chat: 'chat 1s linear',
       },
     },
   },

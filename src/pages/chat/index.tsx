@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -5,21 +6,26 @@ import { useEffect, useState } from 'react';
 import Input from '@/components/Input';
 import SpeechBubble from '@/components/SpeechBubble';
 
+type Message = {
+  type: 'answer' | 'question';
+  content: string;
+};
+
 export default function ChatPage() {
   const [isShowSuggest, setIsShowSuggest] = useState(true);
   const [step, setStep] = useState(0);
+  const messages: Message[] = [
+    {
+      type: 'question',
+      content: '우리집에서 낭비되고 있는 에너지 항목은?',
+    },
+    {
+      type: 'answer',
+      content: '사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.',
+    },
+  ];
 
   const router = useRouter();
-
-  const handleClick = () => {
-    if (step === 1) {
-      setStep(2);
-      return;
-    }
-    if (step === 2) {
-      // 시나리오 종료
-    }
-  };
 
   useEffect(() => {
     if (step === 1) {
@@ -28,7 +34,7 @@ export default function ChatPage() {
   }, [step]);
 
   return (
-    <div className='flex h-full flex-col pb-10'>
+    <div className='flex h-screen flex-col pb-10'>
       <div className='mb-[.375rem] flex flex-grow flex-col bg-white p-4'>
         <div className='flex justify-between pb-[1.125rem]'>
           <Image
@@ -55,7 +61,7 @@ export default function ChatPage() {
           <br />
           저에게 무엇이든 요청해주세요.
         </div>
-        <div className='flex flex-grow flex-col overflow-y-scroll'>
+        <div className='flex flex-grow flex-col overflow-y-scroll transition-all'>
           <div className={`${isShowSuggest ? '' : 'hidden'}`}>
             <div className='flex items-center justify-end pb-[.5625rem] pt-[.6875rem]'>
               <Image
@@ -79,16 +85,19 @@ export default function ChatPage() {
             </SpeechBubble>
           </div>
         </div>
+
         <div className='flex-grow'></div>
-        <SpeechBubble type='question'>
-          우리집에서 낭비되고 있는 에너지 항목은?
-        </SpeechBubble>
-        <SpeechBubble type='answer'>
-          사용자의 집에서 낭비되고 있는 에너지는 전기에너지 입니다.
-        </SpeechBubble>
+
+        {messages.slice(0, step).map((message, index) => (
+          <AnimatePresence key={index}>
+            <SpeechBubble type={message.type} onClick={() => setStep(step + 1)}>
+              {message.content}
+            </SpeechBubble>
+          </AnimatePresence>
+        ))}
       </div>
       <div className='px-4'>
-        <Input onClick={handleClick} />
+        <Input onClick={() => setStep((prev) => prev + 1)} />
       </div>
     </div>
   );

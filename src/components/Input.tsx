@@ -17,6 +17,12 @@ export default function Input({ onClick }: InputProps) {
       <input
         value={text}
         onChange={handleChange}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            onClick();
+            setText('');
+          }
+        }}
         className='h-full  w-full rounded-full px-4 outline-none'
       />
       <div
