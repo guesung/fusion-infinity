@@ -127,7 +127,7 @@ export default function ChatPage() {
       }
     }
   };
-
+  
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
