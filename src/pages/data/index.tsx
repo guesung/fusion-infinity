@@ -40,7 +40,7 @@ export default function Data() {
         <div className='h-[5rem]'>
           <div>
             <h2 className='font-bold'>이번 달 통지서</h2>
-            <div className='h-6 w-24'>
+            <div className='h-6 w-28'>
               {loading ? (
                 <Skeleton />
               ) : (
