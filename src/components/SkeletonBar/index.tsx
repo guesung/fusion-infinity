@@ -10,8 +10,8 @@ interface SkeletonBarProps {
 const SkeletonBar = ({ className = '' }: SkeletonBarProps) => {
   return (
     <div
-      className={`animate-skeleton overflow-hidden rounded-md bg-[rgb(237,237,237)] ${className}`}
-    ></div>
+      className={`animate-skeleton overflow-hidden rounded-md bg-[rgb(237,237,237)] ${className} h-full`}
+    />
   );
 };
 
